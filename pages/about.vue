@@ -50,7 +50,7 @@ const team = [
         Empowering the world with technology.
       </h2>
       <p class="text-lg leading-relaxed text-slate-500">
-        Since 2018, we’ve been delivering cutting-edge software and design solutions to solve unique challenges.
+        Since 2018 our team has been delivering cutting-edge software and design solutions to solve unique challenges.
         With a commitment to excellence, we combine agile management, creative design, and state-of-the-art technology to drive your business growth.
       </p>
     </div>
