@@ -1,79 +1,73 @@
-# Erzot Landing Page
+# Welcome to your Lovable project
 
-## Setup
+## Project info
 
-Make sure to install the dependencies:
+**URL**: https://lovable.dev/projects/108cc284-c3ea-4c17-af2c-8e8dd4837ea6
 
-```bash
-# npm
-npm install
+## How can I edit this code?
 
-# pnpm
-pnpm install
+There are several ways of editing your application.
 
-# yarn
-yarn install
+**Use Lovable**
 
-# bun
-bun install
-```
+Simply visit the [Lovable Project](https://lovable.dev/projects/108cc284-c3ea-4c17-af2c-8e8dd4837ea6) and start prompting.
 
-## Development Server
+Changes made via Lovable will be committed automatically to this repo.
 
-Start the development server on `http://localhost:3000`:
+**Use your preferred IDE**
 
-```bash
-# npm
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+**Edit a file directly in GitHub**
 
-Build the application for production:
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-```bash
-# npm
-npm run build
+**Use GitHub Codespaces**
 
-# pnpm
-pnpm run build
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-# yarn
-yarn build
+## What technologies are used for this project?
 
-# bun
-bun run build
-```
+This project is built with:
 
-Locally preview production build:
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-```bash
-# npm
-npm run preview
+## How can I deploy this project?
 
-# pnpm
-pnpm run preview
+Simply open [Lovable](https://lovable.dev/projects/108cc284-c3ea-4c17-af2c-8e8dd4837ea6) and click on Share -> Publish.
 
-# yarn
-yarn preview
+## Can I connect a custom domain to my Lovable project?
 
-# bun
-bun run preview
-```
+Yes, you can!
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-## Attributions
-
-Original Astroship Template: **[https://astroship.web3templates.com/](https://astroship.web3templates.com/)** from **[Web3Templates](https://web3templates.com/)**
-
-Forked from: **[https://github.com/surjithctly/astroship](https://github.com/surjithctly/astroship)**
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
