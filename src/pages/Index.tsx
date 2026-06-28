@@ -20,29 +20,27 @@ const openGoogleCalendar = () => {
 // Kept the existing figures (5+ / 45+ / 10+ / 3) — presented as a spec ledger
 // rather than four glass cards.
 const stats = [
-  { label: "Experience", value: "5+ yrs" },
+  { label: "Experience", value: "7+ yrs" },
   { label: "Products shipped", value: "45+" },
   { label: "Clients", value: "10+" },
   { label: "Continents", value: "3" },
 ];
 
-// TODO(erzot): drop in real headshots (e.g. /nicholas.jpg, /rodrigo.jpg) and set
-// `photo` below — the card falls back to a monogram until then.
 const founders = [
   {
     initials: "NH",
     name: "Nicholas Hopf",
-    role: "Co-founder · Product & Business",
-    bio: "Leads product and the business side — scoping, strategy, and keeping delivery honest.",
-    photo: null as string | null,
+    role: "Product & Business",
+    bio: "Leads product and the business side: scoping, strategy, and keeping delivery honest.",
+    photo: "/nicholas.jpeg" as string | null,
     linkedin: "https://www.linkedin.com/in/nicholas-hopf/",
   },
   {
     initials: "RG",
     name: "Rodrigo Gomes",
-    role: "Co-founder · Engineering & Data",
-    bio: "Data engineer who owns the hard technical calls and the architecture under the hood.",
-    photo: null as string | null,
+    role: "Data & Engineering",
+    bio: "Data engineer who makes the hard technical calls and owns the architecture.",
+    photo: "/rodrigo.jpeg" as string | null,
     linkedin: "https://www.linkedin.com/in/rod-gomes/",
   },
 ];
@@ -50,34 +48,34 @@ const founders = [
 // Specialists we bring in per project — trusted collaborators, not a permanent roster.
 const collaborators = [
   { name: "Carol Loiola", focus: "Product · UI/UX" },
-  { name: "Sofia Zeltser", focus: "Branding" },
-  { name: "Icaro Rezende", focus: "Engineering · Business (founder, 4hábitos)" },
+  { name: "Icaro Rezende", focus: "Engineering · Business" },
   { name: "Roger Alencar", focus: "Engineering" },
+  { name: "Sofia Zeltser", focus: "Branding" },
 ];
 
 // Selected work — real projects. `url` is optional (rendered as a link when present).
 const projects = [
   {
-    name: "onlyonce.life",
-    blurb: "A memory-ritual PWA that helps families capture and revisit moments together.",
-    tags: "Full PWA · Product build",
-    url: "https://onlyonce.life",
+    name: "Ábaco Consultoria Contábil",
+    blurb: "Rebuilt an accounting firm's web presence for search and speed: climbing in rankings and bringing in new inbound leads.",
+    tags: "SEO · Digital marketing",
+    url: null as string | null,
   },
   {
-    name: "Ábaco Consultoria Contábil",
-    blurb: "Rebuilt an accounting firm's web presence for search and speed — climbing in rankings and bringing in new inbound leads.",
-    tags: "SEO · Digital marketing · Lighthouse",
+    name: "OnlyOnce",
+    blurb: "A memory-ritual PWA that helps families capture and revisit moments together.",
+    tags: "Full PWA · Product build",
     url: null as string | null,
   },
   {
     name: "SerraMar",
-    blurb: "Full end-to-end ecommerce build — storefront, checkout, and operations.",
+    blurb: "Full end-to-end ecommerce build: storefront, checkout, and operations.",
     tags: "Ecommerce · End-to-end",
     url: null as string | null,
   },
   {
     name: "Lizzie Stanton",
-    blurb: "End-to-end ecommerce for a US brand, built and shipped start to finish.",
+    blurb: "End-to-end ecommerce for a US brand.",
     tags: "Ecommerce · End-to-end · USA",
     url: null as string | null,
   },
@@ -94,7 +92,7 @@ const steps = [
   {
     no: "01",
     title: "Discover & plan",
-    body: "Before any code, we map the product with you: who it's for, what it has to do first, and a stack that won't box you in later. You leave with a scoped plan and a timeline — not a vague proposal.",
+    body: "Before any code, we map the product with you: who it's for, what it has to do first, and a stack that won't box you in later. You leave with a scope, a stack decision, and a timeline.",
   },
   {
     no: "02",
@@ -104,7 +102,7 @@ const steps = [
   {
     no: "03",
     title: "Scale & evolve",
-    body: "After launch we stay on as your team: new features, performance work, and the unglamorous maintenance that keeps a product alive as its user base grows.",
+    body: "After launch we stay on as your team: new features, performance work, and the unglamorous maintenance that keeps a product alive.",
   },
 ];
 
@@ -116,13 +114,13 @@ const differentiators = [
   },
   {
     no: "B",
-    title: "Weeks, not quarters",
-    body: "We're set up for speed — a working MVP in weeks, then steady iteration. Fast, with tests and security included, never as an afterthought.",
+    title: "MVP in weeks",
+    body: "We're set up for speed: a working MVP in weeks, then steady iteration. Tests and security are in from day one.",
   },
   {
     no: "C",
     title: "A global bench",
-    body: "We've shipped across Europe, Latin America, and the US, and work across time zones without friction or surprises.",
+    body: "We've shipped across Europe, Latin America, and the US, and work across time zones.",
   },
   {
     no: "D",
@@ -138,7 +136,7 @@ const Index = () => {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-[#E4E7EC] bg-white/85 backdrop-blur">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="flex h-16 items-center justify-between">
-            <a href="#top" aria-label="Erzot — back to top" className="flex items-center">
+            <a href="#top" aria-label="Erzot: back to top" className="flex items-center">
               <img src="/logo.png" alt="Erzot" className="h-7" />
             </a>
             <nav className="label-mono hidden items-center gap-8 text-[#5B6472] md:flex">
@@ -162,7 +160,7 @@ const Index = () => {
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
             <div className="animate-fade-in lg:col-span-8">
               <p className="label-mono text-[#296CE1]">
-                Founder-led software studio — Porto, Portugal
+                Founder-led software studio · Porto, Portugal
               </p>
               <h1 className="font-display mt-6 text-5xl font-medium leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
                 We build the version of your product that{" "}
@@ -170,7 +168,7 @@ const Index = () => {
               </h1>
               <p className="mt-7 max-w-xl text-lg text-[#5B6472] sm:text-xl">
                 Erzot is two founders and a small team of engineers. We take
-                startups and enterprises from idea to live MVP — fast, secure,
+                startups and enterprises from idea to live MVP, fast, secure,
                 and without the agency runaround.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -223,8 +221,8 @@ const Index = () => {
                 No account managers.
               </h2>
               <p className="mt-6 text-lg text-[#5B6472]">
-                Nicholas and Rodrigo started Erzot after building and shipping
-                their own products. Hire us and they're the ones in your repo —
+                We started Erzot after building and shipping
+                their own products. Hire us and they're the ones in your repo,
                 not a sales team that hands you off after kickoff.
               </p>
             </div>
@@ -273,7 +271,7 @@ const Index = () => {
               </h2>
               <p className="mt-6 text-lg text-[#5B6472]">
                 Erzot is small on purpose. When a project needs a specialist, we
-                bring in people we've already shipped with — not strangers off a
+                bring in people we've already shipped with, not strangers off a
                 marketplace.
               </p>
             </div>
@@ -390,11 +388,11 @@ const Index = () => {
             <blockquote className="font-display max-w-4xl text-2xl font-medium leading-snug text-[#0E1726] sm:text-3xl lg:text-4xl">
               "We're genuinely happy with the work and the results so far. Our
               site climbed in search and started bringing in new potential
-              customers. The seriousness and quality of the work stood out — and
+              customers. The seriousness and quality of the work stood out, and
               every deadline was met."
             </blockquote>
             <figcaption className="label-mono mt-8 text-[#5B6472]">
-              Letícia Gomes — Financial Administrator, Ábaco Consultoria
+              Letícia Gomes, Financial Administrator, Ábaco Consultoria
             </figcaption>
           </figure>
         </div>
@@ -408,17 +406,18 @@ const Index = () => {
             Tell us what you're building.
           </h2>
           <p className="mt-6 max-w-xl text-lg text-white/70">
-            Wherever you are — from Silicon Valley to here in{" "}
+            We work out of{" "}
             <a
               href="https://www.investporto.pt/en/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
+              className="text-white underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
             >
               Porto
-            </a>{" "}
-            — send a few lines about your project. We'll tell you honestly
-            whether we're the right team and how we'd approach it.
+            </a>
+            , with clients from San Francisco to São Paulo. Send a few lines
+            about your project and we'll tell you honestly whether we're the
+            right team and how we'd approach it.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <button
@@ -439,7 +438,7 @@ const Index = () => {
             </button>
           </div>
           <p className="label-mono mt-7 text-white/40">
-            Time zones aren't a problem — we work across three continents.
+            Time zones aren't a problem, we work across three continents.
           </p>
         </div>
       </section>
@@ -449,7 +448,7 @@ const Index = () => {
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 sm:px-8 md:flex-row md:items-center md:justify-between">
           <img src="/logo_white.png" alt="Erzot" className="h-7" />
           <div className="label-mono text-white/40 md:text-right">
-            <div>MVPs, shipped with precision</div>
+            <div>We scope, build, and ship.</div>
             <div className="mt-1">
               © 2026 Erzot · Made in{" "}
               <a
