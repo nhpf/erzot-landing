@@ -1,342 +1,466 @@
-import { ArrowRight, Clock, Globe, Zap, Users, CheckCircle, Mail, Lightbulb, Code, TrendingUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight, ArrowUpRight, Mail } from "lucide-react";
 
 // Smooth scroll utility function
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    element.scrollIntoView({ behavior: "smooth" });
   }
 };
 
 // Google Calendar scheduling function
 const openGoogleCalendar = () => {
-  // Open Google Calendar scheduling in a new window
   window.open(
-    'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2rdh2Jz9mHXXE8RErMUewyf3q57pfkCqu853uSZ_D9CUaGhwNK2EABWiES-cq_mCLJssRGItOg?gv=true',
-    '_blank',
-    'noopener,noreferrer'
+    "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2rdh2Jz9mHXXE8RErMUewyf3q57pfkCqu853uSZ_D9CUaGhwNK2EABWiES-cq_mCLJssRGItOg?gv=true",
+    "_blank",
+    "noopener,noreferrer",
   );
 };
 
+// Kept the existing figures (5+ / 45+ / 10+ / 3) — presented as a spec ledger
+// rather than four glass cards.
+const stats = [
+  { label: "Experience", value: "5+ yrs" },
+  { label: "Products shipped", value: "45+" },
+  { label: "Clients", value: "10+" },
+  { label: "Continents", value: "3" },
+];
+
+// TODO(erzot): drop in real headshots (e.g. /nicholas.jpg, /rodrigo.jpg) and set
+// `photo` below — the card falls back to a monogram until then.
+const founders = [
+  {
+    initials: "NH",
+    name: "Nicholas Hopf",
+    role: "Co-founder · Product & Business",
+    bio: "Leads product and the business side — scoping, strategy, and keeping delivery honest.",
+    photo: null as string | null,
+    linkedin: "https://www.linkedin.com/in/nicholas-hopf/",
+  },
+  {
+    initials: "RG",
+    name: "Rodrigo Gomes",
+    role: "Co-founder · Engineering & Data",
+    bio: "Data engineer who owns the hard technical calls and the architecture under the hood.",
+    photo: null as string | null,
+    linkedin: "https://www.linkedin.com/in/rod-gomes/",
+  },
+];
+
+// Specialists we bring in per project — trusted collaborators, not a permanent roster.
+const collaborators = [
+  { name: "Carol Loiola", focus: "Product · UI/UX" },
+  { name: "Sofia Zeltser", focus: "Branding" },
+  { name: "Icaro Rezende", focus: "Engineering · Business (founder, 4hábitos)" },
+  { name: "Roger Alencar", focus: "Engineering" },
+];
+
+// Selected work — real projects. `url` is optional (rendered as a link when present).
+const projects = [
+  {
+    name: "onlyonce.life",
+    blurb: "A memory-ritual PWA that helps families capture and revisit moments together.",
+    tags: "Full PWA · Product build",
+    url: "https://onlyonce.life",
+  },
+  {
+    name: "Ábaco Consultoria Contábil",
+    blurb: "Rebuilt an accounting firm's web presence for search and speed — climbing in rankings and bringing in new inbound leads.",
+    tags: "SEO · Digital marketing · Lighthouse",
+    url: null as string | null,
+  },
+  {
+    name: "SerraMar",
+    blurb: "Full end-to-end ecommerce build — storefront, checkout, and operations.",
+    tags: "Ecommerce · End-to-end",
+    url: null as string | null,
+  },
+  {
+    name: "Lizzie Stanton",
+    blurb: "End-to-end ecommerce for a US brand, built and shipped start to finish.",
+    tags: "Ecommerce · End-to-end · USA",
+    url: null as string | null,
+  },
+  {
+    name: "Conselho de Cidadãos",
+    blurb: "Migrated a legacy web app onto solid ground and overhauled how it shows up in search.",
+    tags: "Brownfield migration · SEO",
+    url: null as string | null,
+  },
+];
+
+// A real sequence, so numbering carries meaning.
+const steps = [
+  {
+    no: "01",
+    title: "Discover & plan",
+    body: "Before any code, we map the product with you: who it's for, what it has to do first, and a stack that won't box you in later. You leave with a scoped plan and a timeline — not a vague proposal.",
+  },
+  {
+    no: "02",
+    title: "Design & build",
+    body: "We design and build in short cycles, shipping something you can test every week. Web or mobile, full-stack, with security and tests in from the start instead of bolted on before launch.",
+  },
+  {
+    no: "03",
+    title: "Scale & evolve",
+    body: "After launch we stay on as your team: new features, performance work, and the unglamorous maintenance that keeps a product alive as its user base grows.",
+  },
+];
+
+const differentiators = [
+  {
+    no: "A",
+    title: "You work with the builders",
+    body: "The people who scope your project are the people who write its code. No handoffs, no telephone game through an account manager.",
+  },
+  {
+    no: "B",
+    title: "Weeks, not quarters",
+    body: "We're set up for speed — a working MVP in weeks, then steady iteration. Fast, with tests and security included, never as an afterthought.",
+  },
+  {
+    no: "C",
+    title: "A global bench",
+    body: "We've shipped across Europe, Latin America, and the US, and work across time zones without friction or surprises.",
+  },
+  {
+    no: "D",
+    title: "We'll tell you no",
+    body: "We've run our own startups, so we'll flag the feature that won't move your numbers before you pay us to build it.",
+  },
+];
+
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header/Navigation */}
-      <header className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/80 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <img src="/logo.png" alt="Erzot" className="h-8" />
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
-              <a href="#why-us" className="text-gray-700 hover:text-blue-600 transition-colors">Why Us</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+    <div id="top" className="min-h-screen bg-white text-[#0E1726]">
+      {/* Header */}
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-[#E4E7EC] bg-white/85 backdrop-blur">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <a href="#top" aria-label="Erzot — back to top" className="flex items-center">
+              <img src="/logo.png" alt="Erzot" className="h-7" />
+            </a>
+            <nav className="label-mono hidden items-center gap-8 text-[#5B6472] md:flex">
+              <a href="#work" className="transition-colors hover:text-[#296CE1]">Work</a>
+              <a href="#approach" className="transition-colors hover:text-[#296CE1]">Approach</a>
+              <a href="#founders" className="transition-colors hover:text-[#296CE1]">Founders</a>
             </nav>
-            <Button 
-              className="bg-blue-600 hover:bg-blue-700"
+            <button
               onClick={openGoogleCalendar}
+              className="label-mono inline-flex items-center gap-1.5 text-[#0E1726] transition-colors hover:text-[#296CE1]"
             >
-              Let's Talk
-            </Button>
+              Let's talk <ArrowUpRight className="h-3.5 w-3.5" />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-              Building Digital Products with{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Startup Agility
-              </span>{" "}
-              &{" "}
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                Clockwork Precision
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed">
-              Founder-led engineers helping startups and enterprises bring ideas to market{" "}
-              <strong>quickly and securely</strong>. We develop MVPs and scalable solutions as if they were our own – on-time, on-budget, every time.
-            </p>
-            
-            {/* Key Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-              <div className="backdrop-blur-sm bg-white/40 rounded-lg p-6 border border-white/20">
-                <div className="text-3xl font-bold text-blue-600 mb-2">5+</div>
-                <div className="text-sm text-gray-600">Years in Business</div>
-              </div>
-              <div className="backdrop-blur-sm bg-white/40 rounded-lg p-6 border border-white/20">
-                <div className="text-3xl font-bold text-purple-600 mb-2">45+</div>
-                <div className="text-sm text-gray-600">Products Launched</div>
-              </div>
-              <div className="backdrop-blur-sm bg-white/40 rounded-lg p-6 border border-white/20">
-                <div className="text-3xl font-bold text-blue-600 mb-2">10+</div>
-                <div className="text-sm text-gray-600">Happy Clients</div>
-              </div>
-              <div className="backdrop-blur-sm bg-white/40 rounded-lg p-6 border border-white/20">
-                <div className="text-3xl font-bold text-purple-600 mb-2">3</div>
-                <div className="text-sm text-gray-600">Continents Served</div>
+      {/* Hero */}
+      <section className="pb-20 pt-28 sm:pb-28 sm:pt-36">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
+            <div className="animate-fade-in lg:col-span-8">
+              <p className="label-mono text-[#296CE1]">
+                Founder-led software studio — Porto, Portugal
+              </p>
+              <h1 className="font-display mt-6 text-5xl font-medium leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+                We build the version of your product that{" "}
+                <span className="ink-underline text-[#296CE1]">actually ships.</span>
+              </h1>
+              <p className="mt-7 max-w-xl text-lg text-[#5B6472] sm:text-xl">
+                Erzot is two founders and a small team of engineers. We take
+                startups and enterprises from idea to live MVP — fast, secure,
+                and without the agency runaround.
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <button
+                  onClick={openGoogleCalendar}
+                  className="group inline-flex items-center justify-center gap-2 bg-[#296CE1] px-7 py-3.5 text-base font-medium text-white transition-colors hover:bg-[#1E56B8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#296CE1]"
+                >
+                  Start a project
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </button>
+                <button
+                  onClick={() => scrollToSection("work")}
+                  className="inline-flex items-center justify-center px-7 py-3.5 text-base font-medium text-[#0E1726] ring-1 ring-[#E4E7EC] transition-colors hover:bg-[#F6F7F9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#296CE1]"
+                >
+                  See our work
+                </button>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6"
-                onClick={() => scrollToSection('contact')}
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="text-lg px-8 py-6 border-gray-300 hover:bg-gray-50"
-                onClick={() => scrollToSection('services')}
-              >
-                Our Services
-              </Button>
+            {/* Signature: the spec ledger (kept stats, set like an engineering sheet) */}
+            <div className="lg:col-span-4">
+              <dl className="divide-y divide-[#E4E7EC] border border-[#E4E7EC]">
+                <div className="bg-[#0E1726] px-5 py-3">
+                  <span className="label-mono text-white/70">By the numbers</span>
+                </div>
+                {stats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="flex items-baseline justify-between px-5 py-5"
+                  >
+                    <dt className="label-mono text-[#5B6472]">{stat.label}</dt>
+                    <dd className="font-display text-3xl text-[#0E1726]">{stat.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mission Statement - Founders First */}
-      <section className="py-20 bg-gradient-to-r from-gray-50 to-blue-50/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Built by Founders,{" "}
-                <span className="text-blue-600">For Founders</span>
+      {/* Founders */}
+      <section id="founders" className="border-t border-[#E4E7EC] bg-[#F6F7F9] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <p className="label-mono text-[#296CE1]">Who you're hiring</p>
+              <h2 className="font-display mt-5 text-4xl font-medium leading-[1.05] sm:text-5xl">
+                Two founders.
+                <br />
+                No account managers.
               </h2>
-              <div className="space-y-6 text-lg text-gray-600">
-                <p>
-                  Erzot was founded by <strong>startup entrepreneurs</strong> who have walked the same path as our clients. We know the challenges of iterating fast, scaling up, and meeting enterprise standards all at once.
-                </p>
-                <p>
-                  That's why we <strong>dive in deep</strong> on every project – acting as true partners to our clients. When you work with Erzot, you get a team of experienced product builders who treat your venture like our own baby.
-                </p>
-                <p>
-                  We combine <strong>startup agility</strong> with <strong>enterprise rigor</strong> – moving quickly but never cutting corners on security, compliance, or quality. Deadlines and budgets matter to us, and we have a get-it-done attitude to meet them.
-                </p>
+              <p className="mt-6 text-lg text-[#5B6472]">
+                Nicholas and Rodrigo started Erzot after building and shipping
+                their own products. Hire us and they're the ones in your repo —
+                not a sales team that hands you off after kickoff.
+              </p>
+            </div>
+            <div className="lg:col-span-7 lg:pt-10">
+              <div className="grid gap-px border border-[#E4E7EC] bg-[#E4E7EC] sm:grid-cols-2">
+                {founders.map((person) => (
+                  <div key={person.name} className="bg-white p-7">
+                    {person.photo ? (
+                      <img
+                        src={person.photo}
+                        alt={person.name}
+                        className="h-14 w-14 object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-14 w-14 items-center justify-center bg-[#296CE1]">
+                        <span className="font-display text-xl text-white">{person.initials}</span>
+                      </div>
+                    )}
+                    <h3 className="font-display mt-5 text-2xl text-[#0E1726]">{person.name}</h3>
+                    <p className="label-mono mt-2 text-[#5B6472]">{person.role}</p>
+                    <p className="mt-4 text-[#5B6472]">{person.bio}</p>
+                    <a
+                      href={person.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#296CE1] transition-colors hover:text-[#1E56B8]"
+                    >
+                      LinkedIn <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="relative">
-              <div className="backdrop-blur-sm bg-white/60 rounded-2xl p-8 border border-white/20 shadow-xl">
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <Zap className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                    <h3 className="font-semibold text-gray-900 mb-2">Rapid Iteration</h3>
-                    <p className="text-sm text-gray-600">Fast development cycles</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Collaborators */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <p className="label-mono text-[#296CE1]">The extended bench</p>
+              <h2 className="font-display mt-5 text-4xl font-medium leading-[1.05] sm:text-5xl">
+                People we've built with.
+              </h2>
+              <p className="mt-6 text-lg text-[#5B6472]">
+                Erzot is small on purpose. When a project needs a specialist, we
+                bring in people we've already shipped with — not strangers off a
+                marketplace.
+              </p>
+            </div>
+            <div className="lg:col-span-7 lg:pt-10">
+              <dl className="border-t border-[#E4E7EC]">
+                {collaborators.map((person) => (
+                  <div
+                    key={person.name}
+                    className="flex flex-col gap-1 border-b border-[#E4E7EC] py-5 sm:flex-row sm:items-baseline sm:justify-between"
+                  >
+                    <dt className="font-display text-2xl text-[#0E1726]">{person.name}</dt>
+                    <dd className="label-mono text-[#5B6472]">{person.focus}</dd>
                   </div>
-                  <div className="text-center">
-                    <Users className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                    <h3 className="font-semibold text-gray-900 mb-2">Ownership</h3>
-                    <p className="text-sm text-gray-600">Your success is our success</p>
-                  </div>
-                  <div className="text-center">
-                    <CheckCircle className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                    <h3 className="font-semibold text-gray-900 mb-2">Security & Compliance</h3>
-                    <p className="text-sm text-gray-600">Enterprise-grade standards</p>
-                  </div>
-                  <div className="text-center">
-                    <Clock className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                    <h3 className="font-semibold text-gray-900 mb-2">On-Time Delivery</h3>
-                    <p className="text-sm text-gray-600">Reliable and predictable</p>
-                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Approach */}
+      <section id="approach" className="border-t border-[#E4E7EC] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="max-w-2xl">
+            <p className="label-mono text-[#296CE1]">How we work</p>
+            <h2 className="font-display mt-5 text-4xl font-medium leading-[1.05] sm:text-5xl">
+              From idea to shipped, in three moves.
+            </h2>
+          </div>
+          <div className="mt-14 border-t border-[#E4E7EC]">
+            {steps.map((step) => (
+              <div
+                key={step.no}
+                className="grid gap-4 border-b border-[#E4E7EC] py-10 md:grid-cols-12 md:gap-6"
+              >
+                <div className="md:col-span-2">
+                  <span className="font-mono text-2xl text-[#296CE1]">{step.no}</span>
+                </div>
+                <div className="md:col-span-3">
+                  <h3 className="font-display text-2xl text-[#0E1726]">{step.title}</h3>
+                </div>
+                <div className="md:col-span-7">
+                  <p className="text-lg text-[#5B6472]">{step.body}</p>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              From Idea to MVP{" "}
-              <span className="text-blue-600">(and Beyond)</span>
+      {/* Why teams pick us */}
+      <section className="border-t border-[#E4E7EC] bg-[#F6F7F9] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="max-w-2xl">
+            <p className="label-mono text-[#296CE1]">Why teams pick us</p>
+            <h2 className="font-display mt-5 text-4xl font-medium leading-[1.05] sm:text-5xl">
+              What you actually get.
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We partner with you at every stage of your product journey, from initial concept to scaling success.
-            </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="backdrop-blur-sm bg-white/80 border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-8">
-                <Lightbulb className="h-12 w-12 text-blue-600 mb-6" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Discover & Plan</h3>
-                <p className="text-gray-600 mb-6">
-                  We kick off every project by deeply understanding your business and vision. Through consulting workshops, market research, and technical assessments, we identify opportunities and craft a winning strategy.
-                </p>
-                <p className="text-gray-600">
-                  Before a single line of code, we map out the product roadmap, user experience (UX), and technology stack to set you up for success.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="backdrop-blur-sm bg-white/80 border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-8">
-                <Code className="h-12 w-12 text-purple-600 mb-6" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Design & Build</h3>
-                <p className="text-gray-600 mb-6">
-                  Our sweet spot is turning concepts into fully functional MVPs at lightning speed. We excel in UX/UI design and full-stack development, creating web and mobile applications that are user-friendly and scalable.
-                </p>
-                <p className="text-gray-600">
-                  Whether it's a quick Proof-of-Concept to test an idea or a robust app ready for thousands of users, we deliver high-quality code on-time and on-budget.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="backdrop-blur-sm bg-white/80 border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-8">
-                <TrendingUp className="h-12 w-12 text-blue-600 mb-6" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Scale & Evolve</h3>
-                <p className="text-gray-600 mb-6">
-                  Launch is just the beginning. We offer dedicated teams to continuously improve your product, add new features, and ensure it scales smoothly as your user base grows.
-                </p>
-                <p className="text-gray-600">
-                  Our long-term partnership services include performance optimization, maintenance, and even strategic product coaching. We become an extension of your team.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="mt-14 grid gap-px border border-[#E4E7EC] bg-[#E4E7EC] sm:grid-cols-2">
+            {differentiators.map((item) => (
+              <div key={item.no} className="bg-[#F6F7F9] p-8">
+                <span className="font-mono text-sm text-[#296CE1]">{item.no}</span>
+                <h3 className="font-display mt-3 text-2xl text-[#0E1726]">{item.title}</h3>
+                <p className="mt-3 text-[#5B6472]">{item.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Erzot */}
-      <section id="why-us" className="py-20 bg-gradient-to-br from-blue-50/50 to-purple-50/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Why Choose <span className="text-purple-600">Erzot</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're not just another development team. Here's what makes us different.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="backdrop-blur-sm bg-white/60 rounded-lg p-6 border border-white/20">
-              <Users className="h-10 w-10 text-blue-600 mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Founders First</h3>
-              <p className="text-gray-600 text-sm">
-                We're not just coders, we're entrepreneurs. We approach your product with a founder's mindset – focusing on product-market fit, user experience, and viability.
-              </p>
-            </div>
-
-            <div className="backdrop-blur-sm bg-white/60 rounded-lg p-6 border border-white/20">
-              <Zap className="h-10 w-10 text-purple-600 mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Rapid & Reliable</h3>
-              <p className="text-gray-600 text-sm">
-                Need to launch fast? We specialize in rapid development cycles to get your MVP out quickly, without ever compromising on quality or security.
-              </p>
-            </div>
-
-            <div className="backdrop-blur-sm bg-white/60 rounded-lg p-6 border border-white/20">
-              <Globe className="h-10 w-10 text-blue-600 mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Global Perspective</h3>
-              <p className="text-gray-600 text-sm">
-                With project experience across Europe, Latin America, and the USA, our team brings a global outlook to development and understands diverse markets.
-              </p>
-            </div>
-
-            <div className="backdrop-blur-sm bg-white/60 rounded-lg p-6 border border-white/20">
-              <CheckCircle className="h-10 w-10 text-purple-600 mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Proven Results</h3>
-              <p className="text-gray-600 text-sm">
-                In the past 5+ years, we've delivered dozens of successful projects, helping clients achieve digital transformation and tangible growth.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial Section */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">What Our Clients Say</h2>
-          </div>
-          
-          <div className="backdrop-blur-sm bg-gradient-to-r from-blue-50/80 to-purple-50/80 rounded-2xl p-8 md:p-12 border border-white/20 shadow-xl">
-            <blockquote className="text-xl md:text-2xl text-gray-700 italic mb-8 text-center leading-relaxed">
-              "First of all, I would like to say that we at Ábaco are immensely satisfied with your work and the results already achieved. In tests, we noticed our site has improved a lot in searches and it brought us an increase in potential customers. I must mention the <strong>seriousness and quality</strong> of your work, as well as always meeting the deadlines."
-            </blockquote>
-            <div className="text-center">
-              <div className="font-bold text-gray-900 text-lg">Letícia Gomes</div>
-              <div className="text-gray-600">Financial Administrator at Ábaco Consultoria</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section id="contact" className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Let's Build the Future Together
+      {/* Selected work */}
+      <section id="work" className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <p className="label-mono text-[#296CE1]">Selected work</p>
+          <h2 className="font-display mt-5 text-4xl font-medium leading-[1.05] sm:text-5xl">
+            Work we can point to.
           </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Ready to turn your idea into reality? Wherever you're based – from Silicon Valley to here in <a href="https://www.investporto.pt/en/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline decoration-white underline-offset-2">Porto</a> – we're ready to collaborate.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button 
-              size="lg" 
-              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6 border-2 border-transparent transition-all duration-300"
-              onClick={() => window.location.href = 'mailto:hello@erzot.com?subject=Project Inquiry&body=Hi Erzot team,%0D%0A%0D%0AI would like to discuss a potential project with you.%0D%0A%0D%0ABest regards'}
-            >
-              <Mail className="mr-2 h-5 w-5" />
-              hello@erzot.com
-            </Button>
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-white via-blue-50 to-white text-blue-700 hover:text-blue-800 border-2 border-white/60 hover:border-white/90 text-lg px-8 py-6 font-semibold transition-all duration-300 backdrop-blur-sm"
-              style={{
-                boxShadow: '0 20px 40px -10px rgba(59, 130, 246, 0.3), 0 10px 20px -5px rgba(147, 51, 234, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                filter: 'drop-shadow(0 4px 12px rgba(59, 130, 246, 0.15))'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 25px 50px -10px rgba(59, 130, 246, 0.4), 0 15px 30px -5px rgba(147, 51, 234, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)';
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(59, 130, 246, 0.3), 0 10px 20px -5px rgba(147, 51, 234, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-              onClick={openGoogleCalendar}
-            >
-              Schedule a Call
-            </Button>
+
+          {/* Work index — one row per real project. */}
+          <div className="mt-14 border-t border-[#E4E7EC]">
+            {projects.map((project) => (
+              <div
+                key={project.name}
+                className="grid gap-3 border-b border-[#E4E7EC] py-9 md:grid-cols-12 md:gap-6"
+              >
+                <div className="md:col-span-4">
+                  {project.url ? (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-display inline-flex items-center gap-1.5 text-2xl text-[#0E1726] transition-colors hover:text-[#296CE1]"
+                    >
+                      {project.name}
+                      <ArrowUpRight className="h-4 w-4 text-[#296CE1]" />
+                    </a>
+                  ) : (
+                    <h3 className="font-display text-2xl text-[#0E1726]">{project.name}</h3>
+                  )}
+                </div>
+                <div className="md:col-span-5">
+                  <p className="text-lg text-[#5B6472]">{project.blurb}</p>
+                </div>
+                <div className="md:col-span-3 md:text-right">
+                  <span className="label-mono text-[#5B6472]">{project.tags}</span>
+                </div>
+              </div>
+            ))}
           </div>
-          
-          <p className="text-sm opacity-75">
-            Time zones are no obstacle for us. We're excited to hear about your project!
+
+          {/* Testimonial as an editorial pull quote */}
+          <figure className="mt-20 border-t border-[#E4E7EC] pt-12">
+            <blockquote className="font-display max-w-4xl text-2xl font-medium leading-snug text-[#0E1726] sm:text-3xl lg:text-4xl">
+              "We're genuinely happy with the work and the results so far. Our
+              site climbed in search and started bringing in new potential
+              customers. The seriousness and quality of the work stood out — and
+              every deadline was met."
+            </blockquote>
+            <figcaption className="label-mono mt-8 text-[#5B6472]">
+              Letícia Gomes — Financial Administrator, Ábaco Consultoria
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="bg-[#0E1726] py-24 text-white sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <p className="label-mono text-[#7FA8F2]">Start a conversation</p>
+          <h2 className="font-display mt-5 max-w-3xl text-4xl font-medium leading-[1.05] sm:text-5xl lg:text-6xl">
+            Tell us what you're building.
+          </h2>
+          <p className="mt-6 max-w-xl text-lg text-white/70">
+            Wherever you are — from Silicon Valley to here in{" "}
+            <a
+              href="https://www.investporto.pt/en/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
+            >
+              Porto
+            </a>{" "}
+            — send a few lines about your project. We'll tell you honestly
+            whether we're the right team and how we'd approach it.
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <button
+              onClick={() =>
+                (window.location.href =
+                  "mailto:hello@erzot.com?subject=Project Inquiry&body=Hi Erzot team,%0D%0A%0D%0AI would like to discuss a potential project with you.%0D%0A%0D%0ABest regards")
+              }
+              className="inline-flex items-center justify-center gap-2 bg-white px-7 py-3.5 text-base font-medium text-[#0E1726] transition-colors hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <Mail className="h-5 w-5" />
+              hello@erzot.com
+            </button>
+            <button
+              onClick={openGoogleCalendar}
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-medium text-white ring-1 ring-white/25 transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              Schedule a call <ArrowUpRight className="h-4 w-4" />
+            </button>
+          </div>
+          <p className="label-mono mt-7 text-white/40">
+            Time zones aren't a problem — we work across three continents.
           </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center mb-4 md:mb-0">
-              <img src="/logo_white.png" alt="Erzot" className="h-8" />
-            </div>
-            <div className="text-center md:text-right">
-              <div className="text-sm text-gray-400 mb-1">MVPs with Precision</div>
-              <div className="text-sm text-gray-400">© 2025 Erzot. Made in <a href="https://www.investporto.pt/en/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:underline decoration-gray-400 underline-offset-2">Porto</a>, serving clients worldwide.</div>
+      <footer className="border-t border-white/10 bg-[#0E1726] py-12 text-white">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 sm:px-8 md:flex-row md:items-center md:justify-between">
+          <img src="/logo_white.png" alt="Erzot" className="h-7" />
+          <div className="label-mono text-white/40 md:text-right">
+            <div>MVPs, shipped with precision</div>
+            <div className="mt-1">
+              © 2026 Erzot · Made in{" "}
+              <a
+                href="https://www.investporto.pt/en/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 transition-colors hover:text-white hover:underline"
+              >
+                Porto
+              </a>
+              , serving clients worldwide
             </div>
           </div>
         </div>

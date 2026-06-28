@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* Fonts are loaded via <link> in index.html (Fraunces / Inter / JetBrains Mono). */
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
@@ -94,48 +94,55 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-sans;
-    font-weight: 700;
-    line-height: 1.2;
+  /* Display headings use Fraunces; the optical size makes large text feel hand-set. */
+  .font-display {
+    font-optical-sizing: auto;
     letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+
+  /* Mono utility text: eyebrows, data labels, the spec ledger. */
+  .label-mono {
+    @apply font-mono uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
   }
 }
 
 @layer utilities {
-  .glass-effect {
-    @apply backdrop-blur-md bg-white/20 border border-white/30;
-  }
-  
-  .glass-card {
-    @apply backdrop-blur-sm bg-white/60 border border-white/20 shadow-lg;
+  /* Signature device: the blue "ink" marker under a key word. */
+  .ink-underline {
+    background-image: linear-gradient(transparent 62%, rgba(41, 108, 225, 0.22) 62%);
+    background-repeat: no-repeat;
   }
 
-  .text-gradient {
-    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+  /* Hairline rule used throughout the spec-sheet styling. */
+  .rule {
+    @apply border-t border-[#E4E7EC];
   }
 }
 
 /* Smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;
+}
+
+/* Respect reduced-motion preference across the page. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Custom scrollbar */
