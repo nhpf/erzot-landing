@@ -446,7 +446,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-white/10 bg-[#0E1726] py-12 text-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 sm:px-8 md:flex-row md:items-center md:justify-between">
-          <img src="/logo_white.png" alt="Erzot" className="h-7" />
+          <img src="/logo_white.png" alt="Erzot" className="h-7 w-auto" />
           <div className="label-mono text-white/40 md:text-right">
             <div>We scope, build, and ship.</div>
             <div className="mt-1">
